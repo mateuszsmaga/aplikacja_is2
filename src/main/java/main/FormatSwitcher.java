@@ -11,13 +11,13 @@ public class FormatSwitcher {
 	
 	public static String getCorrectFormat(String data, List<Result> results){
 	
-		if(data.equals("XML")){
+		if("XML".equals(data)){
 			return ResultPrinter.returnXML(results);
-		}else if(data.equals("YAML")){
+		}else if("YAML".equals(data)){
 			return ResultPrinter.returnYAML(results);
-		}else if(data.equals("OGDL")){
+		}else if("OGDL".equals(data)){
 			return ResultPrinter.returnOGDL(results);
-		}else if(data.equals("JSON")){
+		}else if("JSON".equals(data)){
 			return ResultPrinter.returnJSON(results);
 		}
 		return "";
@@ -25,13 +25,13 @@ public class FormatSwitcher {
 	
 	public static HttpServletResponse getCorrectHeader(String data, HttpServletResponse response){
 		
-		if(data.equals("XML")){
+		if("XML".equals(data)){
 			response.setHeader("Content-Disposition", "attachment; filename=wyniki.xml");  
-		}else if(data.equals("YAML")){
+		}else if("YAML".equals(data)){
 			response.setHeader("Content-Disposition", "attachment; filename=wyniki.yml");  
-		}else if(data.equals("OGDL")){
+		}else if("OGDL".equals(data)){
 			response.setHeader("Content-Disposition", "attachment; filename=wyniki.ogdl");  
-		}else if(data.equals("JSON")){
+		}else if("JSON".equals(data)){
 			response.setHeader("Content-Disposition", "attachment; filename=wyniki.json");  
 		}
 		return response;
@@ -40,13 +40,13 @@ public class FormatSwitcher {
 	
 	public static String getCorrectFormatForLogs(String data, List<Logs> results){
 		
-		if(data.equals("XML")){
+		if("XML".equals(data)){
 			return ResultPrinter.returnLogsXML(results);
-		}else if(data.equals("YAML")){
+		}else if("YAML".equals(data)){
 			return ResultPrinter.returnLogsYAML(results);
-		}else if(data.equals("OGDL")){
+		}else if("OGDL".equals(data)){
 			return ResultPrinter.returnLogsOGDL(results);
-		}else if(data.equals("JSON")){
+		}else if("JSON".equals(data)){
 			return ResultPrinter.returnLogsJSON(results);
 		}
 		return "";
@@ -54,13 +54,13 @@ public class FormatSwitcher {
 	
 	public static HttpServletResponse getCorrectHeaderForLogs(String data, HttpServletResponse response){
 		
-		if(data.equals("XML")){
+		if("XML".equals(data)){
 			response.setHeader("Content-Disposition", "attachment; filename=logi.xml");  
-		}else if(data.equals("YAML")){
+		}else if("YAML".equals(data)){
 			response.setHeader("Content-Disposition", "attachment; filename=logi.yml"); 
-		}else if(data.equals("OGDL")){
+		}else if("OGDL".equals(data)){
 			response.setHeader("Content-Disposition", "attachment; filename=logi.ogdl");  
-		}else if(data.equals("JSON")){
+		}else if("JSON".equals(data)){
 			response.setHeader("Content-Disposition", "attachment; filename=logi.json");  
 		}
 		return response;

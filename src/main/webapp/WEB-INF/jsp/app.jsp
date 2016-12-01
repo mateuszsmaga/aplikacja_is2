@@ -17,7 +17,7 @@
 		</nav>
 
     
-    	<div th:switch="${T(main.ScheduledTask).youCanGrabData}"> 
+    	<div th:switch="${T(beans.AppHelper).isYouCanGrabData()}"> 
 	    	<form th:case="false" class="form-group" action="#" th:action="@{/errorMsg}" method="get">
 		    	<hr/>
 				<fieldset>
@@ -76,7 +76,7 @@
 			  <div class="col-md-5">
 			  	<input type="text" th:field="*{search}" placeholder="szukany tekst" name="gameNamePhrase" class="form-control input-md" required="true"/>
 			  </div>
-			  <div   class="col-md-2" th:switch="${T(main.ScheduledTask).youCanGrabData}"> 
+			  <div   class="col-md-2" th:switch="${T(beans.AppHelper).isYouCanGrabData()}"> 
 				  <button  style="float:right" th:case="true" type="submit" class="btn btn-outline-success">Pobierz</button>
 				  <button style="float:right"  title="Możesz pobierać dane raz na 15 sekund." th:case="false" type="submit" disabled="true" class="btn btn-outline-success pull-right">Pobierz</button>
 			  </div>
@@ -94,7 +94,7 @@
 			  	<input type="text" th:field="*{search}"  placeholder="szukany tekst" name="gameNamePhrase" class="form-control input-md" required="true"/>
 			  </div>
 			  <div class="col-md-2">
-			  	<div th:switch="${T(main.ScheduledTask).youCanGrabData}"> 
+			  	<div th:switch="${T(beans.AppHelper).isYouCanGrabData()}"> 
 				  <button style="float:right" th:case="true" type="submit" class="btn btn-outline-success">Pobierz</button>
 				  <button style="float:right" title="Możesz pobierać dane raz na 15 sekund." th:case="false" type="submit" disabled="true" class="btn btn-outline-success">Pobierz</button>
 				</div>
@@ -127,7 +127,7 @@
 				</label>
 			  </div>
 			  <div class="col-md-2">
-			    <div th:switch="${T(main.ScheduledTask).youCanGrabData}"> 
+			    <div th:switch="${T(beans.AppHelper).isYouCanGrabData()}"> 
 				  <button  style="float:right" th:case="true" type="submit" class="btn btn-outline-success">Pobierz</button>
 				  <button  style="float:right" title="Możesz pobierać dane raz na 15 sekund." th:case="false" type="submit" disabled="true" class="btn btn-outline-success">Pobierz</button>
 				</div>
@@ -147,7 +147,7 @@
 			  	<input type="number" th:field="*{search}"  placeholder="podaj minimalną liczbę recenzji" name="gameNamePhrase" class="form-control input-md" required="true"/>
 			  </div>
 			  <div class="col-md-2">
-			    <div th:switch="${T(main.ScheduledTask).youCanGrabData}"> 
+			    <div th:switch="${T(beans.AppHelper).isYouCanGrabData()}"> 
 				  <button  style="float:right" th:case="true" type="submit" class="btn btn-outline-success">Pobierz</button>
 				  <button  style="float:right" title="Możesz pobierać dane raz na 15 sekund." th:case="false" type="submit" disabled="true" class="btn btn-outline-success">Pobierz</button>
 				</div>
@@ -167,7 +167,7 @@
 			  	<input type="number" th:field="*{search}" min="1960" max="2020"  placeholder="podaj rok wydania gry" name="gameNamePhrase" class="form-control input-md" required="true"/>
 			  </div>
 			  <div class="col-md-2">
-			    <div th:switch="${T(main.ScheduledTask).youCanGrabData}"> 
+			    <div th:switch="${T(beans.AppHelper).isYouCanGrabData()}"> 
 				  <button  style="float:right" th:case="true" type="submit" class="btn btn-outline-success">Pobierz</button>
 				  <button  style="float:right" title="Możesz pobierać dane raz na 15 sekund." th:case="false" type="submit" disabled="true" class="btn btn-outline-success">Pobierz</button>
 				</div>
@@ -187,7 +187,7 @@
 			  	<input type="number" th:field="*{search}" min="1960" max="2020"  placeholder="podaj rok dodania do bazy" name="gameNamePhrase" class="form-control input-md" required="true"/>
 			  </div>
 			  <div class="col-md-2">
-			    <div th:switch="${T(main.ScheduledTask).youCanGrabData}"> 
+			    <div th:switch="${T(beans.AppHelper).isYouCanGrabData()}"> 
 				  <button  style="float:right" th:case="true" type="submit" class="btn btn-outline-success">Pobierz</button>
 				  <button  style="float:right" title="Możesz pobierać dane raz na 15 sekund." th:case="false" type="submit" disabled="true" class="btn btn-outline-success">Pobierz</button>
 				</div>
@@ -208,7 +208,7 @@
 			  </div>
 			  
 			  <div class="col-md-2">
-			    <div th:switch="${T(main.ScheduledTask).youCanGrabData}"> 
+			    <div th:switch="${T(beans.AppHelper).isYouCanGrabData()}"> 
 				  <button  style="float:right" th:case="true" type="submit" class="btn btn-outline-success">Pobierz</button>
 				  <button  style="float:right" th:case="false" type="submit" disabled="true" class="btn btn-outline-success">Pobierz</button>
 				</div>
@@ -227,7 +227,7 @@
 			  </div>
 			  
 			  <div class="col-md-2">
-			    <div th:switch="${T(main.ScheduledTask).youCanGrabData}"> 
+			    <div th:switch="${T(beans.AppHelper).isYouCanGrabData()}"> 
 				  <button  style="float:right" th:case="true" type="submit" class="btn btn-outline-success">Pobierz</button>
 				  <button style="float:right"  th:case="false" type="submit" disabled="true" class="btn btn-outline-success">Pobierz</button>
 				</div>
@@ -246,7 +246,7 @@
 			  </div>
 			  
 			  <div class="col-md-2">
-			    <div th:switch="${T(main.ScheduledTask).youCanGrabData}"> 
+			    <div th:switch="${T(beans.AppHelper).isYouCanGrabData()}"> 
 				  <button  style="float:right" th:case="true" type="submit" class="btn btn-outline-success">Pobierz</button>
 				  <button style="float:right"  th:case="false" type="submit" disabled="true" class="btn btn-outline-success">Pobierz</button>
 				</div>
@@ -265,7 +265,7 @@
 			  </div>
 			  
 			  <div class="col-md-2">
-			    <div th:switch="${T(main.ScheduledTask).youCanGrabData}"> 
+			    <div th:switch="${T(beans.AppHelper).isYouCanGrabData()}"> 
 				  <button  style="float:right" th:case="true" type="submit" class="btn btn-outline-success">Pobierz</button>
 				  <button  style="float:right" th:case="false" type="submit" disabled="true" class="btn btn-outline-success">Pobierz</button>
 				</div>
@@ -284,7 +284,7 @@
 			  </div>
 			  
 			  <div class="col-md-2">
-			    <div th:switch="${T(main.ScheduledTask).youCanGrabData}"> 
+			    <div th:switch="${T(beans.AppHelper).isYouCanGrabData()}"> 
 				  <button style="float:right"  th:case="true" type="submit" class="btn btn-outline-success">Pobierz</button>
 				  <button  style="float:right" th:case="false" type="submit" disabled="true" class="btn btn-outline-success">Pobierz</button>
 				</div>

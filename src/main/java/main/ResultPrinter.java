@@ -13,6 +13,10 @@ import beans.Logs;
 import beans.Result;
 
 public class ResultPrinter {
+	
+	private ResultPrinter(){
+		
+	}
 
 	public static String returnJSON(List<Result> results){
 		Gson gson = new Gson();
@@ -83,7 +87,7 @@ public class ResultPrinter {
 		for(int i = 0; i<results.size(); i++){
 			data += "  result\n";
 			data += "    ip_address "+results.get(i).getIp_address()+"\n";
-			data += "    function_name "+results.get(i).getFunction_name()+"\n";
+			data += "    function_name \""+results.get(i).getFunction_name()+"\"\n";
 			data += "    browser "+results.get(i).getBrowser()+"\n";
 			data += "    browser_version "+results.get(i).getBrowser_version()+"\n";
 			data += "    operating_system "+results.get(i).getOperating_system()+"\n";

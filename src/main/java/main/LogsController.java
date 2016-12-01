@@ -5,6 +5,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
+
+import beans.AppHelper;
 import beans.Logs;
 import database.ResultDAO;
 import database.ResultJDBCTemplate;
@@ -12,6 +14,10 @@ import eu.bitwalker.useragentutils.UserAgent;
 import eu.bitwalker.useragentutils.Version;
 
 public class LogsController {
+	
+	private LogsController(){
+		
+	}
 
 	public static void createNewLog(ResultDAO template, HttpServletRequest request){
 		
@@ -37,7 +43,7 @@ public class LogsController {
 		logs.setIp_address(ipAddress);
 		logs.setBrowser(browserName);
 		logs.setOperating_system(operatingSystem);
-		logs.setFunction_name(ResultJDBCTemplate.SQL);
+		logs.setFunction_name(AppHelper.getSQL());
 		
 		template.createLog(logs);
 		

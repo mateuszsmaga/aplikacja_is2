@@ -10,7 +10,7 @@ public class Search {
 	private String error;
     private List<Result> results;
     
-    public Search() {
+    private Search() {
     }
 
 	public String getError() {

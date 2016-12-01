@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import beans.AppHelper;
 import beans.Formats;
 import beans.Logs;
 import beans.PlatformsSearch;
@@ -50,22 +51,22 @@ public class MainController {
     
     @RequestMapping(value = "/downloadFormat", method = RequestMethod.POST)
     public void downloadFormatResults(@ModelAttribute("downloadFormat") Searches search, HttpServletResponse response) throws IOException {
-    	ScheduledTask.dataFormat = search.getSearch();
+    	AppHelper.setDataFormat(search.getSearch());
     	response.sendRedirect("app");
     }
-    
+   
     @RequestMapping(value = "/gameName", method = RequestMethod.POST)
     @ResponseBody
     public String gameNameSearchResults(@ModelAttribute("gameName") Searches search, HttpServletResponse response, HttpServletRequest request) throws IOException {
-		if(ScheduledTask.youCanGrabData){
-			ScheduledTask.youCanGrabData=false;
+		if(AppHelper.isYouCanGrabData()){
+			AppHelper.setYouCanGrabData(false);
 	    	List<Result> results = resultJDBCTemplate.getResultsContainingName(search.getSearch());
 	    	LogsController.createNewLog(resultJDBCTemplate, request);
-	    	response = FormatSwitcher.getCorrectHeader(ScheduledTask.dataFormat, response);
-	    	return FormatSwitcher.getCorrectFormat(ScheduledTask.dataFormat, results);
+	    	FormatSwitcher.getCorrectHeader(AppHelper.getDataFormat(), response);
+	    	return FormatSwitcher.getCorrectFormat(AppHelper.getDataFormat(), results);
 		}else{
 			response.sendRedirect("app");;
-			return null;
+			return "app";
 		}
 
     }
@@ -73,15 +74,15 @@ public class MainController {
     @RequestMapping(value = "/gameDeck", method = RequestMethod.POST, produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
     @ResponseBody
     public String gameDeckSearchResults(@ModelAttribute("gameDeck") Searches search, HttpServletResponse response, HttpServletRequest request) throws IOException {
-    	if(ScheduledTask.youCanGrabData){
-			ScheduledTask.youCanGrabData=false;
+    	if(AppHelper.isYouCanGrabData()){
+			AppHelper.setYouCanGrabData(false);
 	    	List<Result> results = resultJDBCTemplate.getDecksContainingTerm(search.getSearch());
 	    	LogsController.createNewLog(resultJDBCTemplate, request);
-	    	response = FormatSwitcher.getCorrectHeader(ScheduledTask.dataFormat, response);
-	    	return FormatSwitcher.getCorrectFormat(ScheduledTask.dataFormat, results);
+	    	FormatSwitcher.getCorrectHeader(AppHelper.getDataFormat(), response);
+	    	return FormatSwitcher.getCorrectFormat(AppHelper.getDataFormat(), results);
 		}else{
 			response.sendRedirect("app");;
-			return null;
+			return "app";
 		}
 
     }
@@ -89,8 +90,8 @@ public class MainController {
     @RequestMapping(value = "/platforms", method = RequestMethod.POST, produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
     @ResponseBody
     public String gamePlatformsSearchResults(@ModelAttribute("platforms") PlatformsSearch platform, HttpServletResponse response, HttpServletRequest request) throws IOException {
-    	if(ScheduledTask.youCanGrabData){
-			ScheduledTask.youCanGrabData=false;
+    	if(AppHelper.isYouCanGrabData()){
+			AppHelper.setYouCanGrabData(false);
 			int pc, ps, arcade, xbox;
 	    	pc=ResultPrinter.boolTo01(platform.isPc());
 	    	arcade=ResultPrinter.boolTo01(platform.isArcade());
@@ -99,26 +100,26 @@ public class MainController {
 	    	  	
 	    	List<Result> results = resultJDBCTemplate.getDecksGamesByPlatform(pc, arcade, ps, xbox);
 	    	LogsController.createNewLog(resultJDBCTemplate, request);
-	    	response = FormatSwitcher.getCorrectHeader(ScheduledTask.dataFormat, response);
-	    	return FormatSwitcher.getCorrectFormat(ScheduledTask.dataFormat, results);
+	    	FormatSwitcher.getCorrectHeader(AppHelper.getDataFormat(), response);
+	    	return FormatSwitcher.getCorrectFormat(AppHelper.getDataFormat(), results);
 		}else{
 			response.sendRedirect("app");;
-			return null;
+			return "app";
 		}	
     }
     
     @RequestMapping(value = "/platformPC", method = RequestMethod.POST, produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
     @ResponseBody
     public String platformPC(HttpServletResponse response, HttpServletRequest request) throws IOException {
-    	if(ScheduledTask.youCanGrabData){
-			ScheduledTask.youCanGrabData=false;
+    	if(AppHelper.isYouCanGrabData()){
+			AppHelper.setYouCanGrabData(false);
 	    	List<Result> results = resultJDBCTemplate.getGamesFromPlatformPC();
 	    	LogsController.createNewLog(resultJDBCTemplate, request);
-	    	response = FormatSwitcher.getCorrectHeader(ScheduledTask.dataFormat, response);
-	    	return FormatSwitcher.getCorrectFormat(ScheduledTask.dataFormat, results);
+	    	FormatSwitcher.getCorrectHeader(AppHelper.getDataFormat(), response);
+	    	return FormatSwitcher.getCorrectFormat(AppHelper.getDataFormat(), results);
 		}else{
 			response.sendRedirect("app");;
-			return null;
+			return "app";
 		}
     	
     	
@@ -127,15 +128,15 @@ public class MainController {
     @RequestMapping(value = "/platformPS", method = RequestMethod.POST, produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
     @ResponseBody
     public String platformPS(HttpServletResponse response, HttpServletRequest request) throws IOException {
-    	if(ScheduledTask.youCanGrabData){
-			ScheduledTask.youCanGrabData=false;
+    	if(AppHelper.isYouCanGrabData()){
+			AppHelper.setYouCanGrabData(false);
 	    	List<Result> results = resultJDBCTemplate.getGamesFromPlatformPS();
 	    	LogsController.createNewLog(resultJDBCTemplate, request);
-	    	response = FormatSwitcher.getCorrectHeader(ScheduledTask.dataFormat, response);
-	    	return FormatSwitcher.getCorrectFormat(ScheduledTask.dataFormat, results);
+	    	FormatSwitcher.getCorrectHeader(AppHelper.getDataFormat(), response);
+	    	return FormatSwitcher.getCorrectFormat(AppHelper.getDataFormat(), results);
 		}else{
 			response.sendRedirect("app");;
-			return null;
+			return "app";
 		}
     	
     	
@@ -144,15 +145,16 @@ public class MainController {
     @RequestMapping(value = "/platformXBOX", method = RequestMethod.POST, produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
     @ResponseBody
     public String platformXBOX(HttpServletResponse response, HttpServletRequest request) throws IOException {
-    	if(ScheduledTask.youCanGrabData){
-			ScheduledTask.youCanGrabData=false;	
+    	if(AppHelper.isYouCanGrabData()){
+			AppHelper.setYouCanGrabData(false);	
+			
 	    	List<Result> results = resultJDBCTemplate.getGamesFromPlatformXBOX();
 	    	LogsController.createNewLog(resultJDBCTemplate, request);
-	    	response = FormatSwitcher.getCorrectHeader(ScheduledTask.dataFormat, response);
-	    	return FormatSwitcher.getCorrectFormat(ScheduledTask.dataFormat, results);
+	    	FormatSwitcher.getCorrectHeader(AppHelper.getDataFormat(), response);
+	    	return FormatSwitcher.getCorrectFormat(AppHelper.getDataFormat(), results);
 		}else{
 			response.sendRedirect("app");;
-			return null;
+			return "app";
 		}
     	
     	
@@ -161,15 +163,15 @@ public class MainController {
     @RequestMapping(value = "/platformARCADE", method = RequestMethod.POST, produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
     @ResponseBody
     public String platformARCADE(HttpServletResponse response, HttpServletRequest request) throws IOException {
-    	if(ScheduledTask.youCanGrabData){
-			ScheduledTask.youCanGrabData=false;
+    	if(AppHelper.isYouCanGrabData()){
+			AppHelper.setYouCanGrabData(false);
 	    	List<Result> results = resultJDBCTemplate.getGamesFromPlatformARCADE();
 	    	LogsController.createNewLog(resultJDBCTemplate, request);
-	    	response = FormatSwitcher.getCorrectHeader(ScheduledTask.dataFormat, response);
-	    	return FormatSwitcher.getCorrectFormat(ScheduledTask.dataFormat, results);
+	    	FormatSwitcher.getCorrectHeader(AppHelper.getDataFormat(), response);
+	    	return FormatSwitcher.getCorrectFormat(AppHelper.getDataFormat(), results);
 		}else{
 			response.sendRedirect("app");;
-			return null;
+			return "app";
 		}
     	
     	
@@ -178,16 +180,16 @@ public class MainController {
     @RequestMapping(value = "/reviewsNumber", method = RequestMethod.POST, produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
     @ResponseBody
     public String findByReviewsNumber(@ModelAttribute("reviewsNumber") Searches search, HttpServletResponse response, HttpServletRequest request) throws IOException {
-    	if(ScheduledTask.youCanGrabData){
-			ScheduledTask.youCanGrabData=false;
+    	if(AppHelper.isYouCanGrabData()){
+			AppHelper.setYouCanGrabData(false);
 	    	int reviewNumber = Integer.parseInt(search.getSearch());
 	    	List<Result> results = resultJDBCTemplate.getReviews(reviewNumber);
 	    	LogsController.createNewLog(resultJDBCTemplate, request);
-	    	response = FormatSwitcher.getCorrectHeader(ScheduledTask.dataFormat, response);
-	    	return FormatSwitcher.getCorrectFormat(ScheduledTask.dataFormat, results);
+	    	FormatSwitcher.getCorrectHeader(AppHelper.getDataFormat(), response);
+	    	return FormatSwitcher.getCorrectFormat(AppHelper.getDataFormat(), results);
 		}else{
 			response.sendRedirect("app");;
-			return null;
+			return "app";
 		}
 
     }
@@ -195,15 +197,16 @@ public class MainController {
     @RequestMapping(value = "/releaseYear", method = RequestMethod.POST, produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
     @ResponseBody
     public String findByReleaseYear(@ModelAttribute("releaseYear") Searches search, HttpServletResponse response, HttpServletRequest request) throws IOException {
-    	if(ScheduledTask.youCanGrabData){
-			ScheduledTask.youCanGrabData=false;
+    	if(AppHelper.isYouCanGrabData()){
+    		
+			AppHelper.setYouCanGrabData(false);
 	    	List<Result> results = resultJDBCTemplate.getGamesByReleaseYear(search.getSearch());
 	    	LogsController.createNewLog(resultJDBCTemplate, request);
-	    	response = FormatSwitcher.getCorrectHeader(ScheduledTask.dataFormat, response);
-	    	return FormatSwitcher.getCorrectFormat(ScheduledTask.dataFormat, results);
+	    	FormatSwitcher.getCorrectHeader(AppHelper.getDataFormat(), response);
+	    	return FormatSwitcher.getCorrectFormat(AppHelper.getDataFormat(), results);
 		}else{
 			response.sendRedirect("app");;
-			return null;
+			return "app";
 		}
     	
     }
@@ -211,15 +214,15 @@ public class MainController {
     @RequestMapping(value = "/addYear", method = RequestMethod.POST, produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
     @ResponseBody
     public String findByUpdateYear(@ModelAttribute("addYear") Searches search, HttpServletResponse response, HttpServletRequest request) throws IOException {
-    	if(ScheduledTask.youCanGrabData){
-			ScheduledTask.youCanGrabData=false;
+    	if(AppHelper.isYouCanGrabData()){
+			AppHelper.setYouCanGrabData(false);
 	    	List<Result> results = resultJDBCTemplate.getGamesByAddYear(search.getSearch());
 	    	LogsController.createNewLog(resultJDBCTemplate, request);
-	    	response = FormatSwitcher.getCorrectHeader(ScheduledTask.dataFormat, response);
-	    	return FormatSwitcher.getCorrectFormat(ScheduledTask.dataFormat, results);
+	    	FormatSwitcher.getCorrectHeader(AppHelper.getDataFormat(), response);
+	    	return FormatSwitcher.getCorrectFormat(AppHelper.getDataFormat(), results);
 		}else{
 			response.sendRedirect("app");;
-			return null;
+			return "app";
 		}
     	
     }
@@ -227,16 +230,16 @@ public class MainController {
     @RequestMapping(value = "/logs", method = RequestMethod.POST, produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
     @ResponseBody
     public String findByUpdateYear( HttpServletResponse response, HttpServletRequest request) throws IOException {
-    	if(ScheduledTask.youCanGrabData){
-			ScheduledTask.youCanGrabData=false;
+    	if(AppHelper.isYouCanGrabData()){
+			AppHelper.setYouCanGrabData(false);
 			response.setHeader("Content-Disposition", "attachment; filename=logi.xml");
 	    	List<Logs> results = resultJDBCTemplate.getLogs();
 	    	LogsController.createNewLog(resultJDBCTemplate, request);
-	    	response = FormatSwitcher.getCorrectHeaderForLogs(ScheduledTask.dataFormat, response);
-	    	return FormatSwitcher.getCorrectFormatForLogs(ScheduledTask.dataFormat, results);
+	    	FormatSwitcher.getCorrectHeaderForLogs(AppHelper.getDataFormat(), response);
+	    	return FormatSwitcher.getCorrectFormatForLogs(AppHelper.getDataFormat(), results);
 		}else{
 			response.sendRedirect("app");;
-			return null;
+			return "app";
 		}
     	
     }

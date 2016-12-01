@@ -8,11 +8,6 @@ import beans.Result;
 
 public interface ResultDAO {
 
-	public void create(Result result);
-	public Result getResult(Integer id);
-	public List<Result> listResult();
-	public void delete(Integer id);
-	public void update(int id, String name);
 	void createLog(Logs logs);
 	List<Result> getReviews(int number);
 	List<Result> getResultsContainingName(String name);
