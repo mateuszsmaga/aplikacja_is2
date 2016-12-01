@@ -1,6 +1,6 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head> 
-    <title>Integracja systemów - laboratorium 2</title> 
+    <title>Integracja systemów - laboratorium 6</title> 
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <link type="text/css" rel="stylesheet" href="bootstrap/css/bootstrap.css"/>
     
@@ -31,13 +31,48 @@
 				</fieldset>
 			</form>
 		</div>
+		
+		
+		
+		<form class="form-group" action="#" th:action="@{/downloadFormat}" th:object="${downloadFormat}" method="post">
+			<hr/>
+			<fieldset>
+			<!-- Text input-->
+			<div class="form-group"> 
+				 <label class="col-md-5 control-label" >Wybierz format w jakim chcesz pobierać dane:</label>  
+				<div class="col-md-5">
+				 <div class="btn-group" data-toggle="buttons">
+				  <label  class="radio-inline">
+				    <input th:field="*{search}" type="radio" name="options" value="XML" autocomplete="off" checked="true"/> XML (domyślnie)
+				  </label>
+				  <label  class="radio-inline">
+				    <input th:field="*{search}"  type="radio" name="options" value="YAML" autocomplete="off"/> YAML
+				  </label>
+				  <label  class="radio-inline">
+				    <input th:field="*{search}"  type="radio" name="options" value="OGDL" autocomplete="off"/> OGDL
+				  </label>
+				  <label  class="radio-inline">
+				    <input th:field="*{search}"  type="radio" name="options" value="JSON" autocomplete="off"/> JSON
+				  </label>
+				</div>
+			  </div>
+			  <div   class="col-md-2"> 
+				  <button  style="float:right" type="submit" class="btn btn-outline-success"> Zmień </button>
+			  </div>
+			</div>
+			
+			</fieldset>
+			
+			
+		</form>
+		
 
 	    <form class="form-group" action="#" th:action="@{/gameName}" th:object="${gameName}" method="post">
 	    	<hr/>
 			<fieldset>
 			<!-- Text input-->
 			<div class="form-group">
-			  <label class="col-md-5 control-label" for="gameNamePhrase">Wyszukaj gry zawierające w nazwie:</label>  
+			  <label class="col-md-5 control-label" >Wyszukaj gry zawierające w nazwie:</label>  
 			  <div class="col-md-5">
 			  	<input type="text" th:field="*{search}" placeholder="szukany tekst" name="gameNamePhrase" class="form-control input-md" required="true"/>
 			  </div>
@@ -54,7 +89,7 @@
 		<form class="form-group" action="#" th:action="@{/gameDeck}" th:object="${gameDeck}" method="post">
 			<fieldset>
 			<div class="form-group">
-			  <label class="col-md-5 control-label" for="gameNamePhrase">Wyszukaj gry zawierające w opisie:</label>  
+			  <label class="col-md-5 control-label" >Wyszukaj gry zawierające w opisie:</label>  
 			  <div class="col-md-5">
 			  	<input type="text" th:field="*{search}"  placeholder="szukany tekst" name="gameNamePhrase" class="form-control input-md" required="true"/>
 			  </div>
@@ -75,7 +110,7 @@
 			<fieldset>
 			<!-- Text input-->
 			<div class="form-group" >
-			  <label class="col-md-5 control-label " for="gameNamePhrase">Wyszukaj gry na platformach:</label>  
+			  <label class="col-md-5 control-label " >Wyszukaj gry na platformach:</label>  
 			  <div class="col-md-5">
 			  	<label class="form-check-inline">
 				  <input th:field="*{pc}" class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1"/> PC
@@ -107,7 +142,7 @@
 			<fieldset>
 			<!-- Text input-->
 			<div class="form-group">
-			  <label class="col-md-5 control-label" for="gameNamePhrase">Wyszukaj gry z liczbą recenzji większą niż:</label>  
+			  <label class="col-md-5 control-label" >Wyszukaj gry z liczbą recenzji większą niż:</label>  
 			  <div class="col-md-5">
 			  	<input type="number" th:field="*{search}"  placeholder="podaj minimalną liczbę recenzji" name="gameNamePhrase" class="form-control input-md" required="true"/>
 			  </div>
@@ -127,7 +162,7 @@
 			<fieldset>
 			<!-- Text input-->
 			<div class="form-group">
-			  <label class="col-md-5 control-label" for="gameNamePhrase">Wyszukaj gry wydane w roku:</label>  
+			  <label class="col-md-5 control-label" >Wyszukaj gry wydane w roku:</label>  
 			  <div class="col-md-5">
 			  	<input type="number" th:field="*{search}" min="1960" max="2020"  placeholder="podaj rok wydania gry" name="gameNamePhrase" class="form-control input-md" required="true"/>
 			  </div>
@@ -147,7 +182,7 @@
 			<fieldset>
 			<!-- Text input-->
 			<div class="form-group">
-			  <label class="col-md-5 control-label" for="gameNamePhrase">Wyszukaj wpisy dodane do bazy danych w roku:</label>  
+			  <label class="col-md-5 control-label" >Wyszukaj wpisy dodane do bazy danych w roku:</label>  
 			  <div class="col-md-5">
 			  	<input type="number" th:field="*{search}" min="1960" max="2020"  placeholder="podaj rok dodania do bazy" name="gameNamePhrase" class="form-control input-md" required="true"/>
 			  </div>

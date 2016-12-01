@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import beans.Formats;
 import beans.Logs;
 import beans.PlatformsSearch;
 import beans.Result;
@@ -36,6 +38,7 @@ public class MainController {
         model.addAttribute("reviewsNumber", new Searches());
         model.addAttribute("releaseYear", new Searches());
         model.addAttribute("addYear", new Searches());
+        model.addAttribute("downloadFormat", new Searches());
         model.addAttribute("platforms", new PlatformsSearch());
         return "app";
     }
@@ -45,15 +48,21 @@ public class MainController {
     	response.sendRedirect("app");
     }
     
+    @RequestMapping(value = "/downloadFormat", method = RequestMethod.POST)
+    public void downloadFormatResults(@ModelAttribute("downloadFormat") Searches search, HttpServletResponse response) throws IOException {
+    	ScheduledTask.dataFormat = search.getSearch();
+    	response.sendRedirect("app");
+    }
+    
     @RequestMapping(value = "/gameName", method = RequestMethod.POST)
     @ResponseBody
     public String gameNameSearchResults(@ModelAttribute("gameName") Searches search, HttpServletResponse response, HttpServletRequest request) throws IOException {
 		if(ScheduledTask.youCanGrabData){
 			ScheduledTask.youCanGrabData=false;
-			response.setHeader("Content-Disposition", "attachment; filename=wyniki.xml");
 	    	List<Result> results = resultJDBCTemplate.getResultsContainingName(search.getSearch());
 	    	LogsController.createNewLog(resultJDBCTemplate, request);
-	    	return ResultPrinter.byGameName(results);
+	    	response = FormatSwitcher.getCorrectHeader(ScheduledTask.dataFormat, response);
+	    	return FormatSwitcher.getCorrectFormat(ScheduledTask.dataFormat, results);
 		}else{
 			response.sendRedirect("app");;
 			return null;
@@ -66,10 +75,10 @@ public class MainController {
     public String gameDeckSearchResults(@ModelAttribute("gameDeck") Searches search, HttpServletResponse response, HttpServletRequest request) throws IOException {
     	if(ScheduledTask.youCanGrabData){
 			ScheduledTask.youCanGrabData=false;
-			response.setHeader("Content-Disposition", "attachment; filename=wyniki.xml");  
 	    	List<Result> results = resultJDBCTemplate.getDecksContainingTerm(search.getSearch());
 	    	LogsController.createNewLog(resultJDBCTemplate, request);
-	    	return ResultPrinter.byGameName(results);
+	    	response = FormatSwitcher.getCorrectHeader(ScheduledTask.dataFormat, response);
+	    	return FormatSwitcher.getCorrectFormat(ScheduledTask.dataFormat, results);
 		}else{
 			response.sendRedirect("app");;
 			return null;
@@ -87,10 +96,11 @@ public class MainController {
 	    	arcade=ResultPrinter.boolTo01(platform.isArcade());
 	    	xbox=ResultPrinter.boolTo01(platform.isXbox());
 	    	ps=ResultPrinter.boolTo01(platform.isPlaystation());
-	    	response.setHeader("Content-Disposition", "attachment; filename=wyniki.xml");    	
+	    	  	
 	    	List<Result> results = resultJDBCTemplate.getDecksGamesByPlatform(pc, arcade, ps, xbox);
 	    	LogsController.createNewLog(resultJDBCTemplate, request);
-	    	return ResultPrinter.byGameName(results);
+	    	response = FormatSwitcher.getCorrectHeader(ScheduledTask.dataFormat, response);
+	    	return FormatSwitcher.getCorrectFormat(ScheduledTask.dataFormat, results);
 		}else{
 			response.sendRedirect("app");;
 			return null;
@@ -102,10 +112,10 @@ public class MainController {
     public String platformPC(HttpServletResponse response, HttpServletRequest request) throws IOException {
     	if(ScheduledTask.youCanGrabData){
 			ScheduledTask.youCanGrabData=false;
-			response.setHeader("Content-Disposition", "attachment; filename=wyniki.xml");    	
 	    	List<Result> results = resultJDBCTemplate.getGamesFromPlatformPC();
 	    	LogsController.createNewLog(resultJDBCTemplate, request);
-	    	return ResultPrinter.byGameName(results);
+	    	response = FormatSwitcher.getCorrectHeader(ScheduledTask.dataFormat, response);
+	    	return FormatSwitcher.getCorrectFormat(ScheduledTask.dataFormat, results);
 		}else{
 			response.sendRedirect("app");;
 			return null;
@@ -119,10 +129,10 @@ public class MainController {
     public String platformPS(HttpServletResponse response, HttpServletRequest request) throws IOException {
     	if(ScheduledTask.youCanGrabData){
 			ScheduledTask.youCanGrabData=false;
-			response.setHeader("Content-Disposition", "attachment; filename=wyniki.xml");    	
 	    	List<Result> results = resultJDBCTemplate.getGamesFromPlatformPS();
 	    	LogsController.createNewLog(resultJDBCTemplate, request);
-	    	return ResultPrinter.byGameName(results);
+	    	response = FormatSwitcher.getCorrectHeader(ScheduledTask.dataFormat, response);
+	    	return FormatSwitcher.getCorrectFormat(ScheduledTask.dataFormat, results);
 		}else{
 			response.sendRedirect("app");;
 			return null;
@@ -135,11 +145,11 @@ public class MainController {
     @ResponseBody
     public String platformXBOX(HttpServletResponse response, HttpServletRequest request) throws IOException {
     	if(ScheduledTask.youCanGrabData){
-			ScheduledTask.youCanGrabData=false;
-			response.setHeader("Content-Disposition", "attachment; filename=wyniki.xml");    	
+			ScheduledTask.youCanGrabData=false;	
 	    	List<Result> results = resultJDBCTemplate.getGamesFromPlatformXBOX();
 	    	LogsController.createNewLog(resultJDBCTemplate, request);
-	    	return ResultPrinter.byGameName(results);
+	    	response = FormatSwitcher.getCorrectHeader(ScheduledTask.dataFormat, response);
+	    	return FormatSwitcher.getCorrectFormat(ScheduledTask.dataFormat, results);
 		}else{
 			response.sendRedirect("app");;
 			return null;
@@ -153,10 +163,10 @@ public class MainController {
     public String platformARCADE(HttpServletResponse response, HttpServletRequest request) throws IOException {
     	if(ScheduledTask.youCanGrabData){
 			ScheduledTask.youCanGrabData=false;
-			response.setHeader("Content-Disposition", "attachment; filename=wyniki.xml");    	
 	    	List<Result> results = resultJDBCTemplate.getGamesFromPlatformARCADE();
 	    	LogsController.createNewLog(resultJDBCTemplate, request);
-	    	return ResultPrinter.byGameName(results);
+	    	response = FormatSwitcher.getCorrectHeader(ScheduledTask.dataFormat, response);
+	    	return FormatSwitcher.getCorrectFormat(ScheduledTask.dataFormat, results);
 		}else{
 			response.sendRedirect("app");;
 			return null;
@@ -170,11 +180,11 @@ public class MainController {
     public String findByReviewsNumber(@ModelAttribute("reviewsNumber") Searches search, HttpServletResponse response, HttpServletRequest request) throws IOException {
     	if(ScheduledTask.youCanGrabData){
 			ScheduledTask.youCanGrabData=false;
-			response.setHeader("Content-Disposition", "attachment; filename=wyniki.xml");
 	    	int reviewNumber = Integer.parseInt(search.getSearch());
 	    	List<Result> results = resultJDBCTemplate.getReviews(reviewNumber);
 	    	LogsController.createNewLog(resultJDBCTemplate, request);
-	    	return ResultPrinter.byGameNameWithReviews(results);
+	    	response = FormatSwitcher.getCorrectHeader(ScheduledTask.dataFormat, response);
+	    	return FormatSwitcher.getCorrectFormat(ScheduledTask.dataFormat, results);
 		}else{
 			response.sendRedirect("app");;
 			return null;
@@ -187,10 +197,10 @@ public class MainController {
     public String findByReleaseYear(@ModelAttribute("releaseYear") Searches search, HttpServletResponse response, HttpServletRequest request) throws IOException {
     	if(ScheduledTask.youCanGrabData){
 			ScheduledTask.youCanGrabData=false;
-			response.setHeader("Content-Disposition", "attachment; filename=wyniki.xml");
 	    	List<Result> results = resultJDBCTemplate.getGamesByReleaseYear(search.getSearch());
 	    	LogsController.createNewLog(resultJDBCTemplate, request);
-	    	return ResultPrinter.byGameNameWithReviews(results);
+	    	response = FormatSwitcher.getCorrectHeader(ScheduledTask.dataFormat, response);
+	    	return FormatSwitcher.getCorrectFormat(ScheduledTask.dataFormat, results);
 		}else{
 			response.sendRedirect("app");;
 			return null;
@@ -203,10 +213,10 @@ public class MainController {
     public String findByUpdateYear(@ModelAttribute("addYear") Searches search, HttpServletResponse response, HttpServletRequest request) throws IOException {
     	if(ScheduledTask.youCanGrabData){
 			ScheduledTask.youCanGrabData=false;
-			response.setHeader("Content-Disposition", "attachment; filename=wyniki.xml");
 	    	List<Result> results = resultJDBCTemplate.getGamesByAddYear(search.getSearch());
 	    	LogsController.createNewLog(resultJDBCTemplate, request);
-	    	return ResultPrinter.byGameNameWithReviews(results);	
+	    	response = FormatSwitcher.getCorrectHeader(ScheduledTask.dataFormat, response);
+	    	return FormatSwitcher.getCorrectFormat(ScheduledTask.dataFormat, results);
 		}else{
 			response.sendRedirect("app");;
 			return null;
@@ -222,7 +232,8 @@ public class MainController {
 			response.setHeader("Content-Disposition", "attachment; filename=logi.xml");
 	    	List<Logs> results = resultJDBCTemplate.getLogs();
 	    	LogsController.createNewLog(resultJDBCTemplate, request);
-	    	return ResultPrinter.printLogs(results);	
+	    	response = FormatSwitcher.getCorrectHeaderForLogs(ScheduledTask.dataFormat, response);
+	    	return FormatSwitcher.getCorrectFormatForLogs(ScheduledTask.dataFormat, results);
 		}else{
 			response.sendRedirect("app");;
 			return null;
