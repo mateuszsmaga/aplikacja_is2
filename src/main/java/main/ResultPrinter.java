@@ -34,10 +34,27 @@ public class ResultPrinter {
 	    return yaml.dumpAll(results.iterator());
 	}
 	public static String returnOGDL(List<Result> results){
-	    DumperOptions options = new DumperOptions();
-	    options.setExplicitStart(true);
-	    Yaml yaml = new Yaml(options);
-	    return yaml.dumpAll(results.iterator());
+		String data = "";
+		data+="list\n";
+		for(int i = 0; i<results.size(); i++){
+			data += "  result\n";
+			data += "    id "+results.get(i).getId()+"\n";
+			data += "    name \""+results.get(i).getName()+"\"\n";
+			data += "    number_of_user_reviews "+results.get(i).getNumber_of_user_reviews()+"\n";
+			data += "    deck \""+results.get(i).getDeck()+"\"\n";
+			data += "    original_release_date \""+results.get(i).getOriginal_release_date()+"\"\n";
+			data += "    site_detail_url "+results.get(i).getSite_detail_url()+"\n";
+			data += "    date_added \""+results.get(i).getDate_added()+"\"\n";
+			data += "    date_last_updated \""+results.get(i).getDate_last_updated()+"\"\n";
+			data += "    api_detail_url "+results.get(i).getApi_detail_url()+"\n";
+			data += "    expected_release_quarter "+results.get(i).getExpected_release_quarter()+"\n";
+			data += "    expected_release_year "+results.get(i).getExpected_release_year()+"\n";
+			data += "    platform_pc "+results.get(i).getPlatform_pc()+"\n";
+			data += "    platform_playstation "+results.get(i).getPlatform_playstation()+"\n";
+			data += "    platform_arcade "+results.get(i).getPlatform_arcade()+"\n";
+			data += "    platform_xbox "+results.get(i).getPlatform_xbox()+"\n";
+		}
+		return data;
 	}
 	
 	public static String returnLogsJSON(List<Logs> results){
@@ -61,10 +78,19 @@ public class ResultPrinter {
 	}
 	
 	public static String returnLogsOGDL(List<Logs> results){
-		XStream xstream = new XStream(new StaxDriver());
-		xstream.alias("logs", Logs.class);
-		String xml = xstream.toXML(results);
-		return xml;
+		String data = "";
+		data+="list\n";
+		for(int i = 0; i<results.size(); i++){
+			data += "  result\n";
+			data += "    ip_address "+results.get(i).getIp_address()+"\n";
+			data += "    function_name "+results.get(i).getFunction_name()+"\n";
+			data += "    browser "+results.get(i).getBrowser()+"\n";
+			data += "    browser_version "+results.get(i).getBrowser_version()+"\n";
+			data += "    operating_system "+results.get(i).getOperating_system()+"\n";
+			data += "    date \""+results.get(i).getDate()+"\"\n";
+		}
+		
+		return data;
 	}
 	
 	public static String byGameName(List<Result> results){

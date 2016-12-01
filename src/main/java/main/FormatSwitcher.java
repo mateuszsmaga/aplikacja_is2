@@ -30,7 +30,7 @@ public class FormatSwitcher {
 		}else if(data.equals("YAML")){
 			response.setHeader("Content-Disposition", "attachment; filename=wyniki.yml");  
 		}else if(data.equals("OGDL")){
-			
+			response.setHeader("Content-Disposition", "attachment; filename=wyniki.ogdl");  
 		}else if(data.equals("JSON")){
 			response.setHeader("Content-Disposition", "attachment; filename=wyniki.json");  
 		}
@@ -59,7 +59,7 @@ public class FormatSwitcher {
 		}else if(data.equals("YAML")){
 			response.setHeader("Content-Disposition", "attachment; filename=logi.yml"); 
 		}else if(data.equals("OGDL")){
-			
+			response.setHeader("Content-Disposition", "attachment; filename=logi.ogdl");  
 		}else if(data.equals("JSON")){
 			response.setHeader("Content-Disposition", "attachment; filename=logi.json");  
 		}
