@@ -1,5 +1,8 @@
 package beans;
 
+import org.springframework.stereotype.Service;
+
+@Service("platformsSearch")
 public class PlatformsSearch {
 	private boolean pc;
 	private boolean xbox;

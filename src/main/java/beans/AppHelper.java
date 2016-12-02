@@ -1,5 +1,8 @@
 package beans;
 
+import org.springframework.stereotype.Service;
+
+@Service("ah")
 public class AppHelper {
 	private static boolean youCanGrabData = false;
     private static String dataFormat = "XML";

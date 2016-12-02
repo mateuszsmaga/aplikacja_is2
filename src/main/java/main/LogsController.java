@@ -3,13 +3,10 @@ package main;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
 import javax.servlet.http.HttpServletRequest;
-
 import beans.AppHelper;
 import beans.Logs;
 import database.ResultDAO;
-import database.ResultJDBCTemplate;
 import eu.bitwalker.useragentutils.UserAgent;
 import eu.bitwalker.useragentutils.Version;
 

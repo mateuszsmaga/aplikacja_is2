@@ -2,6 +2,7 @@ package main;
 
 import java.util.List;
 
+import org.springframework.stereotype.Service;
 import org.yaml.snakeyaml.DumperOptions;
 import org.yaml.snakeyaml.Yaml;
 
@@ -12,6 +13,7 @@ import com.thoughtworks.xstream.io.xml.StaxDriver;
 import beans.Logs;
 import beans.Result;
 
+@Service("printer")
 public class ResultPrinter {
 	
 	private ResultPrinter(){
