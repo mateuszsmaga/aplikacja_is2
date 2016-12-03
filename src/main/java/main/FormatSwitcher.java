@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletResponse;
 import beans.Logs;
 import beans.Result;
 
+//Klasa pomocnicza zwracajaca odpowiedni header i format danych
 public class FormatSwitcher {
 	
 	public static String getCorrectFormat(String data, List<Result> results){

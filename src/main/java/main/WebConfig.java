@@ -16,6 +16,7 @@ import database.ResultJDBCTemplate;
 @Configuration
 public class WebConfig extends WebMvcConfigurerAdapter{
 	
+	//Dodanie kontrolerów
 	@Override
     public void addViewControllers(ViewControllerRegistry registry) {
         registry.addViewController("/app").setViewName("app");
@@ -24,6 +25,7 @@ public class WebConfig extends WebMvcConfigurerAdapter{
         registry.addViewController("/login").setViewName("login");
     }
 	
+	//Podpięcie do zewnetrznej bazy danych
 	@Bean
     public DataSource getDataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
@@ -34,11 +36,13 @@ public class WebConfig extends WebMvcConfigurerAdapter{
         return dataSource;
     }
 	
+	//pobieranie dataSource
 	@Bean
 	public ResultDAO getResultDAO(){
 		return new ResultJDBCTemplate(getDataSource());
 	}
-
+	
+	//konfigurowanie sciezki dostepu do plikow jsp
     @Bean
     public ITemplateResolver templateResolver() {
         SpringResourceTemplateResolver resolver = new SpringResourceTemplateResolver();

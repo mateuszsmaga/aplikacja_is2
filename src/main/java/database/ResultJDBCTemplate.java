@@ -13,6 +13,7 @@ import beans.Result;
 import mappers.LogsMapper;
 import mappers.ResultsMapper;
 
+//Obslua bazy danych
 public class ResultJDBCTemplate implements ResultDAO {
 
 	private JdbcTemplate jdbcTemplateObject;

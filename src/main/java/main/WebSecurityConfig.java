@@ -12,6 +12,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	
+	//ustawienia zabezpieczen - zezwolenie na dostep do pliku css bootstrapa bez zalogowania sie
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
@@ -28,6 +29,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         
     }
     
+    //haslo i nazwa uzytkownika
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         auth

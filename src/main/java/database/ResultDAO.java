@@ -6,6 +6,7 @@ import javax.sql.DataSource;
 import beans.Logs;
 import beans.Result;
 
+//interfejs definiujacy metody oblsugi bazy danych
 public interface ResultDAO {
 
 	void createLog(Logs logs);

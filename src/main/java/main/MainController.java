@@ -20,6 +20,7 @@ import beans.Result;
 import beans.Searches;
 import database.ResultDAO;
 
+//Kontroler - obsluga formularzy
 @Controller
 public class MainController {
     

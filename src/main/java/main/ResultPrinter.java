@@ -13,12 +13,11 @@ import com.thoughtworks.xstream.io.xml.StaxDriver;
 import beans.Logs;
 import beans.Result;
 
+//Klasa zwraca przetworzna liste wynikow w odpowiednim formacie
 @Service("printer")
 public class ResultPrinter {
 	
-	private ResultPrinter(){
-		
-	}
+	private ResultPrinter(){}
 
 	public static String returnJSON(List<Result> results){
 		Gson gson = new Gson();

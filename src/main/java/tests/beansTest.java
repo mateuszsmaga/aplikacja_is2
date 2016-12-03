@@ -12,6 +12,7 @@ import beans.AppHelper;
 import beans.PlatformsSearch;
 import configs.AppConfig;
 
+//Przykladowe wykorzystanie testow jednostowych - paczka beans
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {AppConfig.class})
 public class beansTest {
@@ -24,7 +25,6 @@ public class beansTest {
     @Qualifier("platformsSearch")
     PlatformsSearch platformSearch;
 
-    /*
     @Test
     public void testBeanWorks() {
     	AppHelper.setSQL("CALL game()");
@@ -51,6 +51,5 @@ public class beansTest {
     	
     	
     }
-    
-    */
+
 }

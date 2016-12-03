@@ -10,11 +10,10 @@ import database.ResultDAO;
 import eu.bitwalker.useragentutils.UserAgent;
 import eu.bitwalker.useragentutils.Version;
 
+//Obsluga,pobieranie danych o operacjach uzytkownikow i zapis do bazy danych
 public class LogsController {
 	
-	private LogsController(){
-		
-	}
+	private LogsController(){}
 
 	public static void createNewLog(ResultDAO template, HttpServletRequest request){
 		
