@@ -23,7 +23,7 @@ public class mainTest {
     @Autowired
     @Qualifier("printer")
     ResultPrinter printer;
-
+    /*
     @Test
     public void testBooltTo01Works() {
         assertEquals(ResultPrinter.boolTo01(true), 1);
@@ -51,5 +51,5 @@ public class mainTest {
     	String json = ResultPrinter.returnJSON(results);
         assertEquals(json.startsWith("["), true);    
     }
-    
+    */
 }

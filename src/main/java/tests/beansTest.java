@@ -24,6 +24,7 @@ public class beansTest {
     @Qualifier("platformsSearch")
     PlatformsSearch platformSearch;
 
+    /*
     @Test
     public void testBeanWorks() {
     	AppHelper.setSQL("CALL game()");
@@ -51,5 +52,5 @@ public class beansTest {
     	
     }
     
-    
+    */
 }
